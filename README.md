@@ -111,3 +111,21 @@ El proyecto mantiene una separación clara entre tecnologías:
 - HTML: estructura y semántica.
 - CSS: apariencia, distribución y responsive design.
 - JavaScript: comportamiento, eventos y manipulación del DOM.
+
+---
+
+## Accesibilidad
+
+Durante el desarrollo de CLRS se incorporaron distintas consideraciones básicas de accesibilidad para facilitar la navegación y la interacción con la aplicación.
+
+- **HTML semántico:** se utilizan elementos como `header`, `nav`, `main`, `section`, `article` y `footer` para comunicar correctamente la estructura de la página.
+- **Controles asociados a etiquetas:** los elementos de formulario utilizan `label`, `fieldset` y `legend` para identificar claramente su función.
+- **Navegación mediante teclado:** los elementos interactivos pueden recibir foco y cuentan con indicadores visuales mediante `:focus-visible`.
+- **Skip link:** se incluye un enlace para permitir que usuarios que navegan mediante teclado puedan saltar directamente al contenido principal.
+- **Elementos interactivos adecuados:** las tarjetas de colores son creadas como elementos `button` en lugar de elementos genéricos, permitiendo su uso con mouse y teclado.
+- **Atributos ARIA:** se utilizan atributos como `aria-label`, `aria-labelledby` y `aria-live` para aportar contexto adicional a tecnologías de asistencia.
+- **Microfeedback accesible:** el mensaje mostrado al copiar un color utiliza una región `aria-live`, permitiendo comunicar el cambio sin necesidad de mover el foco.
+- **Preferencias de movimiento:** el diseño considera `prefers-reduced-motion` para reducir animaciones cuando el usuario así lo haya configurado en su sistema.
+- **Diseño responsive:** la distribución se adapta a distintos tamaños de pantalla mediante media queries.
+
+Estas medidas representan consideraciones básicas de accesibilidad integradas durante el desarrollo. El proyecto no pretende sustituir una auditoría formal basada en WCAG.
