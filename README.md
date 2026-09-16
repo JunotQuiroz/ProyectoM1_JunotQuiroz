@@ -129,3 +129,15 @@ Durante el desarrollo de CLRS se incorporaron distintas consideraciones básicas
 - **Diseño responsive:** la distribución se adapta a distintos tamaños de pantalla mediante media queries.
 
 Estas medidas representan consideraciones básicas de accesibilidad integradas durante el desarrollo. El proyecto no pretende sustituir una auditoría formal basada en WCAG.
+
+## Uso de Inteligencia Artificial
+
+ChatGPT fue utilizado como herramienta de apoyo durante la planeación, desarrollo, depuración y documentación de CLRS.
+
+El proceso completo, incluyendo prompts, respuestas, decisiones técnicas y evidencia del uso de IA, se encuentra en:
+
+📄 [Documentación completa del uso de IA](documentacion/ia.md)
+
+También se encuentra disponible la conversación completa utilizada durante el desarrollo:
+
+🔗 [Ver conversación en ChatGPT](ENLACE-COMPARTIDO)
