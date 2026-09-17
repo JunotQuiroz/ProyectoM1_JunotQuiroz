@@ -258,3 +258,462 @@ Esta etapa permitió reforzar la diferencia entre:
 HTML como estructura.
 CSS como presentación.
 JavaScript como comportamiento.
+
+## 5. Desarrollo de la lógica con JavaScript
+
+### Objetivo
+
+Implementar las funcionalidades interactivas de CLRS utilizando JavaScript puro y comprender el funcionamiento de cada bloque antes de integrarlo al proyecto.
+
+### Prompt utilizado
+
+> Ya chequé el HTML y el CSS. Me gusta el diseño. Veo que todo está bien estructurado y sobre todo tiene las bases para las funcionalidades.
+>
+> Ahora continuemos con JavaScript. Ayúdame con todo el código, pero de igual forma explícalo poco a poco, de esta forma yo lo asimilo y voy aprendiendo.
+>
+> ¿Tienes alguna duda o sugerencia?
+
+### Resultado obtenido
+
+Se desarrolló la lógica principal de la aplicación utilizando JavaScript sin frameworks ni librerías externas.
+
+La solución incluyó funciones para:
+
+- Rotar palabras de manera automática en el Hero.
+- Detectar la industria seleccionada.
+- Mostrar recomendaciones dinámicas.
+- Crear swatches de colores.
+- Obtener la cantidad de colores seleccionada.
+- Detectar el formato HEX o HSL.
+- Generar números aleatorios.
+- Crear colores aleatorios.
+- Convertir colores de HSL a HEX.
+- Generar una paleta completa.
+- Crear dinámicamente las tarjetas de color.
+- Copiar códigos al portapapeles.
+- Mostrar microfeedback al usuario.
+
+### Organización del código
+
+El código JavaScript se estructuró utilizando diferentes tipos de elementos:
+
+- Constantes para almacenar referencias del DOM.
+- Arrays para almacenar información.
+- Objetos para organizar datos.
+- Funciones para separar responsabilidades.
+- Eventos para reaccionar a las acciones del usuario.
+
+Por ejemplo, las palabras utilizadas en el Hero se almacenaron dentro de un array:
+
+```javascript
+const palabrasHero = [
+    "paz",
+    "pasión",
+    "energía",
+    "elegancia",
+    "creatividad",
+    "poder",
+    "tranquilidad"
+];
+```
+
+La información del recomendador por industria se almacenó en un objeto que relaciona cada industria con un texto y diferentes colores sugeridos.
+
+### Manipulación del DOM
+
+JavaScript se conecta con los elementos creados previamente en HTML mediante `document.querySelector()`.
+
+Ejemplo:
+
+```javascript
+const botonGenerar =
+    document.querySelector("#btn-generar");
+
+const contenedorPaleta =
+    document.querySelector("#contenedor-paleta");
+```
+
+Esto permite modificar elementos existentes y crear contenido nuevo como respuesta a las acciones del usuario.
+
+### Aprendizaje
+
+Esta etapa ayudó a comprender cómo JavaScript puede utilizarse para conectar:
+
+**datos → eventos → lógica → cambios visibles en el DOM**
+
+También permitió reforzar conceptos como:
+
+- `const` y `let`.
+- Arrays.
+- Objetos.
+- Funciones.
+- Ciclos `for`.
+- `forEach()`.
+- Condicionales.
+- Eventos.
+- Manipulación del DOM.
+- `setInterval()`.
+- `setTimeout()`.
+
+---
+
+## 6. Render dinámico y representación HSL / HEX
+
+### Objetivo
+
+Generar paletas de 6, 8 o 9 colores y permitir al usuario visualizar los mismos colores tanto en formato HEX como en HSL.
+
+### Decisión técnica
+
+Durante el desarrollo se decidió que cambiar entre HEX y HSL no debía generar una paleta diferente.
+
+La aplicación genera un color una sola vez y almacena sus distintas representaciones dentro del mismo objeto.
+
+Ejemplo conceptual:
+
+```javascript
+{
+    h: 210,
+    s: 70,
+    l: 50,
+    hsl: "hsl(210, 70%, 50%)",
+    hex: "#2680D9"
+}
+```
+
+De esta forma, HEX y HSL representan el mismo color.
+
+### Generación de colores
+
+Para generar los colores se utilizó `Math.random()` mediante una función auxiliar:
+
+```javascript
+function numeroAleatorio(min, max) {
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+}
+```
+
+Los colores se generan inicialmente utilizando valores HSL.
+
+Se utilizaron los siguientes rangos:
+
+- Hue: 0 a 359.
+- Saturación: 50% a 90%.
+- Luminosidad: 35% a 70%.
+
+La saturación y luminosidad se limitaron para evitar generar demasiados colores casi grises, blancos o negros.
+
+### Conversión HSL a HEX
+
+Después de generar los valores HSL se utiliza una función para calcular su representación equivalente en HEX:
+
+```javascript
+const hex =
+    convertirHslAHex(
+        h,
+        s,
+        l
+    );
+```
+
+El objetivo de esta función no fue memorizar la fórmula matemática de conversión, sino comprender que un mismo color puede representarse mediante diferentes sistemas.
+
+### Generación según la cantidad seleccionada
+
+El usuario puede seleccionar 6, 8 o 9 colores.
+
+JavaScript obtiene la opción seleccionada y ejecuta un ciclo `for` esa cantidad de veces:
+
+```javascript
+for (
+    let i = 0;
+    i < cantidad;
+    i++
+) {
+
+    const color =
+        crearColorAleatorio();
+
+    paletaActual.push(
+        color
+    );
+}
+```
+
+Cada color generado se almacena dentro del array:
+
+```javascript
+paletaActual
+```
+
+### Render dinámico
+
+Las tarjetas de colores no están escritas previamente en el HTML.
+
+JavaScript las crea en tiempo real mediante:
+
+```javascript
+document.createElement("button")
+```
+
+Después se agregan al contenedor utilizando:
+
+```javascript
+contenedorPaleta.appendChild(tarjeta);
+```
+
+La cantidad de elementos creados depende directamente de la selección del usuario.
+
+### Cambio entre HEX y HSL
+
+Cuando el usuario cambia de formato no se ejecuta nuevamente la generación aleatoria.
+
+En su lugar se vuelve a renderizar la información existente:
+
+```javascript
+if (paletaActual.length > 0) {
+    renderizarPaleta();
+}
+```
+
+Esto permite conservar los mismos colores y cambiar únicamente su representación.
+
+### Aprendizaje
+
+Esta parte permitió comprender la diferencia entre:
+
+- Generar información.
+- Almacenar información.
+- Representar información.
+- Renderizar información en el DOM.
+
+También ayudó a entender que la interfaz no necesita regenerar los datos cada vez que cambia la forma en que estos se muestran.
+
+---
+
+## 7. Portapapeles y microfeedback
+
+### Objetivo
+
+Permitir que el usuario pudiera utilizar fácilmente los colores generados copiando su código directamente desde la interfaz.
+
+### Funcionalidad implementada
+
+Cada tarjeta de color se creó como un elemento `button`.
+
+Al hacer clic sobre ella se ejecuta una función que copia el código actualmente visible.
+
+Si el usuario está visualizando HEX, se copia HEX.
+
+Si está visualizando HSL, se copia HSL.
+
+### Clipboard API
+
+Para realizar esta acción se utilizó:
+
+```javascript
+navigator.clipboard.writeText(codigo);
+```
+
+La función se implementó utilizando `async` y `await`:
+
+```javascript
+async function copiarColor(codigo) {
+
+    try {
+
+        await navigator.clipboard.writeText(
+            codigo
+        );
+
+        mostrarToast(
+            `${codigo} copiado al portapapeles`
+        );
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo copiar el color:",
+            error
+        );
+
+        mostrarToast(
+            "No se pudo copiar el color."
+        );
+    }
+}
+```
+
+También se consideró que la Clipboard API requiere normalmente un contexto seguro como HTTPS o localhost.
+
+### Microfeedback
+
+Después de copiar correctamente el color, la aplicación muestra un mensaje temporal.
+
+Ejemplo:
+
+> `#0274BE copiado al portapapeles`
+
+El mensaje utiliza un elemento destinado al toast y JavaScript agrega temporalmente la clase:
+
+```javascript
+mostrar
+```
+
+Posteriormente `setTimeout()` retira esa clase después de unos segundos.
+
+### Accesibilidad
+
+El toast utiliza `aria-live`, por lo que el cambio también puede ser comunicado por tecnologías de asistencia sin modificar manualmente el foco.
+
+Las tarjetas reciben además un `aria-label` dinámico.
+
+Ejemplo conceptual:
+
+```text
+Copiar color #0274BE al portapapeles
+```
+
+### Aprendizaje
+
+Esta funcionalidad permitió conectar varias tecnologías en una sola interacción:
+
+**evento de clic → Clipboard API → actualización del DOM → microfeedback**
+
+También permitió comprender la importancia de confirmar visualmente una acción realizada por el usuario.
+
+---
+
+## 8. Debugging: aparición de "Tu paleta"
+
+### Problema detectado
+
+Durante las pruebas de la aplicación se detectó un detalle de experiencia de usuario.
+
+Al entrar por primera vez a CLRS aparecía el encabezado:
+
+> **Tu paleta**
+
+aunque todavía no se había generado ninguna combinación de colores.
+
+Esto producía un espacio visual vacío debajo de los controles.
+
+### Prompt utilizado
+
+> Ya probé la funcionalidad y todo está perfecto.
+>
+> El único detalle es que cuando recién entras a la página hay una anotación hasta abajo que dice "Tu paleta" y no hay nada porque no has generado ninguna paleta.
+>
+> Entonces me gustaría que esa anotación se ocultara y solamente hasta que le das al botón generar por primera vez aparezca junto con los diferentes colores que conforman dicha paleta.
+
+### Primera solución propuesta
+
+Se decidió utilizar el atributo HTML:
+
+```html
+hidden
+```
+
+para ocultar inicialmente toda la sección de resultados.
+
+Posteriormente JavaScript debía cambiar ese estado después de generar la primera paleta.
+
+Conceptualmente:
+
+```javascript
+resultadoPaleta.hidden = false;
+```
+
+### Error encontrado
+
+Después de aplicar la primera modificación ocurrió un nuevo problema.
+
+El título se ocultaba correctamente al cargar la página, pero al presionar **Generar paleta** ya no aparecían los colores.
+
+### Segundo prompt de debugging
+
+> Ya lo probé y sí se oculta el título, pero al momento de darle generar paleta no funciona en ninguna opción de número ni tipo de color.
+>
+> Al parecer se ocultó también la funcionalidad de mostrar las paletas.
+
+### Diagnóstico
+
+Se revisó nuevamente el HTML y JavaScript.
+
+El problema estaba relacionado con la referencia utilizada para localizar la sección de resultados.
+
+JavaScript necesitaba encontrar correctamente el elemento existente en el HTML antes de modificar su propiedad `hidden`.
+
+### Solución final
+
+Se aprovechó la clase que la sección ya tenía:
+
+```html
+class="resultado-paleta"
+```
+
+y se creó la referencia:
+
+```javascript
+const resultadoPaleta =
+    document.querySelector(".resultado-paleta");
+```
+
+Posteriormente, dentro de la función `generarNuevaPaleta()`, después de crear los colores:
+
+```javascript
+resultadoPaleta.hidden = false;
+
+renderizarPaleta();
+```
+
+### Resultado
+
+El flujo final quedó de la siguiente manera:
+
+```text
+Carga de la página
+        ↓
+La sección "Tu paleta" permanece oculta
+        ↓
+El usuario selecciona cantidad y formato
+        ↓
+Presiona "Generar paleta"
+        ↓
+JavaScript genera los colores
+        ↓
+Se muestra la sección de resultados
+        ↓
+Se renderizan las tarjetas
+```
+
+Después de la corrección se verificó nuevamente:
+
+- Generación de 6 colores.
+- Generación de 8 colores.
+- Generación de 9 colores.
+- Formato HEX.
+- Formato HSL.
+- Cambio entre formatos.
+- Generación sucesiva de nuevas paletas.
+
+Todas las funcionalidades volvieron a trabajar correctamente.
+
+### Aprendizaje
+
+Este error fue útil para comprender que una modificación aparentemente pequeña puede afectar otras partes de la aplicación.
+
+También permitió aplicar un proceso real de debugging:
+
+1. Identificar el comportamiento inesperado.
+2. Reproducir el problema.
+3. Revisar qué cambio lo provocó.
+4. Localizar el punto donde JavaScript detenía su ejecución.
+5. Corregir la referencia al elemento del DOM.
+6. Volver a probar todas las funciones relacionadas.
+
+Esta experiencia reforzó la importancia de **probar las respuestas generadas por IA en lugar de asumir que siempre funcionarán correctamente**.
+
+La IA ayudó a plantear y corregir la solución, pero la detección del error ocurrió mediante pruebas reales realizadas sobre la aplicación.
