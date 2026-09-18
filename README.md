@@ -130,14 +130,98 @@ Durante el desarrollo de CLRS se incorporaron distintas consideraciones básicas
 
 Estas medidas representan consideraciones básicas de accesibilidad integradas durante el desarrollo. El proyecto no pretende sustituir una auditoría formal basada en WCAG.
 
+---
+
+## Ejecución local
+
+CLRS es una aplicación web estática, por lo que no requiere instalación de dependencias ni configuración de un servidor backend.
+
+### Opción 1: Clonar el repositorio
+
+1. Clona el repositorio utilizando Git:
+
+```bash
+git https://github.com/JunotQuiroz/ProyectoM1_JunotQuiroz.git
+
+```
+
+2. Ingresa a la carpeta del proyecto:
+
+cd ProyectoM1_JunotQuiroz
+
+3. Abre la carpeta en Visual Studio Code.
+
+4. Ejecuta index.html utilizando un servidor local, por ejemplo Live Server.
+
+## Opción 2: Descargar el proyecto
+
+También es posible descargar el repositorio como archivo ZIP desde GitHub.
+Después de descomprimirlo, abre la carpeta en Visual Studio Code y ejecuta index.html mediante un servidor local.
+[!NOTE]
+Se recomienda utilizar localhost para probar correctamente funciones como el copiado al portapapeles.
+
+---
+
+## Despliegue
+
+CLRS se publica utilizando **GitHub Pages**.
+
+### Pasos para desplegar
+
+1. Subir el proyecto a un repositorio de GitHub.
+2. Ingresar al repositorio.
+3. Abrir **Settings**.
+4. Seleccionar **Pages**.
+5. En la sección de despliegue, seleccionar la rama principal del proyecto.
+6. Seleccionar la carpeta raíz del repositorio.
+7. Guardar la configuración.
+8. Esperar a que GitHub genere la URL pública.
+
+Una vez publicado, la aplicación puede consultarse desde:
+
+🔗 [CLRS en GitHub Pages](https://junotquiroz.github.io/ProyectoM1_JunotQuiroz/)
+
+---
+
 ## Uso de Inteligencia Artificial
 
-ChatGPT fue utilizado como herramienta de apoyo durante la planeación, desarrollo, depuración y documentación de CLRS.
+Durante el desarrollo de CLRS se utilizó ChatGPT como herramienta de apoyo para:
 
-El proceso completo, incluyendo prompts, respuestas, decisiones técnicas y evidencia del uso de IA, se encuentra en:
+- Analizar los requerimientos del proyecto.
+- Diseñar la arquitectura HTML.
+- Comprender y desarrollar estilos CSS.
+- Implementar la lógica con JavaScript.
+- Revisar aspectos de accesibilidad.
+- Resolver errores mediante debugging.
+- Documentar el proyecto.
 
-📄 [Documentación completa del uso de IA](documentacion/ia.md)
+La Inteligencia Artificial se utilizó como herramienta de acompañamiento durante el proceso de aprendizaje. Las soluciones propuestas fueron revisadas, probadas y ajustadas antes de incorporarse al proyecto.
 
-También se encuentra disponible la conversación completa utilizada durante el desarrollo:
+📄 [Consultar documentación completa del uso de IA](documentacion/IA.md)
 
-🔗 [Ver conversación en ChatGPT](ENLACE-COMPARTIDO)
+🔗 [Consultar conversación completa de desarrollo en ChatGPT](https://chatgpt.com/share/6aad78bb-3ee8-83e8-80f5-9544899e386b)
+
+---
+
+## Mejoras futuras
+
+Aunque CLRS cumple actualmente con los objetivos principales del proyecto, existen diferentes funcionalidades que podrían incorporarse en versiones posteriores:
+
+- Guardar paletas mediante `localStorage`.
+- Bloquear colores individuales antes de generar una nueva paleta.
+- Crear un historial de paletas generadas.
+- Agregar nuevas industrias al recomendador.
+- Permitir descargar una paleta como imagen.
+- Añadir nombres descriptivos a los colores generados.
+- Incorporar más opciones de personalización.
+
+---
+
+## Autor
+
+**Junot Quiroz**
+🔗 [Mail de contacto](junotquiroz@gmail.com) 
+
+Proyecto Integrador - Módulo 1  
+Full Stack Web  
+Henry
