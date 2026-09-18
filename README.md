@@ -220,7 +220,6 @@ Aunque CLRS cumple actualmente con los objetivos principales del proyecto, exist
 ## Autor
 
 **Junot Quiroz**
-🔗 [Mail de contacto](junotquiroz@gmail.com) 
 
 Proyecto Integrador - Módulo 1  
 Full Stack Web  
