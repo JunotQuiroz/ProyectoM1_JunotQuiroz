@@ -40,6 +40,26 @@ Este método permitió utilizar la IA no solamente para generar código, sino ta
 
 ---
 
+---
+
+## Índice
+
+1. [Análisis de la propuesta inicial](#interaccion-1)
+2. [Definición de identidad visual y funcionalidades](#interaccion-2)
+3. [Construcción de la arquitectura HTML](#interaccion-3)
+4. [Desarrollo de la interfaz con CSS](#interaccion-4)
+5. [Desarrollo de la lógica con JavaScript](#interaccion-5)
+6. [Render dinámico y representación HSL / HEX](#interaccion-6)
+7. [Portapapeles y microfeedback](#interaccion-7)
+8. [Debugging: aparición de "Tu paleta"](#interaccion-8)
+9. [Accesibilidad](#interaccion-9)
+10. [Documentación mediante Markdown](#interaccion-10)
+11. [Reflexión final sobre el uso de Inteligencia Artificial](#interaccion-11)
+
+---
+
+<a id="interaccion-1"></a>
+
 # Registro de interacciones con IA
 
 ## 1. Análisis de la propuesta inicial
@@ -91,6 +111,8 @@ Esta interacción permitió comprender la importancia de diferenciar entre:
 
 También ayudó a evitar que las funcionalidades adicionales desplazaran el objetivo principal del proyecto.
 
+<a id="interaccion-2"></a>
+
 ## 2. Definición de identidad visual y funcionalidades
 
 ### Objetivo
@@ -136,6 +158,8 @@ Esto permitió concentrar el desarrollo en funcionalidades relacionadas directam
 ### Aprendizaje
 
 Esta etapa ayudó a comprender que una aplicación puede incorporar personalidad visual sin perder claridad, accesibilidad ni enfoque funcional.
+
+<a id="interaccion-3"></a>
 
 ## 3. Construcción de la arquitectura HTML
 
@@ -203,6 +227,8 @@ La estructura semántica también comunica el significado y la función de los e
 
 ---
 
+<a id="interaccion-4"></a>
+
 # Interacción 4 — Desarrollo CSS
 ## 4. Desarrollo de la interfaz con CSS
 
@@ -258,6 +284,8 @@ Esta etapa permitió reforzar la diferencia entre:
 HTML como estructura.
 CSS como presentación.
 JavaScript como comportamiento.
+
+<a id="interaccion-5"></a>
 
 ## 5. Desarrollo de la lógica con JavaScript
 
@@ -356,6 +384,8 @@ También permitió reforzar conceptos como:
 - `setTimeout()`.
 
 ---
+
+<a id="interaccion-6"></a>
 
 ## 6. Render dinámico y representación HSL / HEX
 
@@ -493,6 +523,8 @@ También ayudó a entender que la interfaz no necesita regenerar los datos cada 
 
 ---
 
+<a id="interaccion-7"></a>
+
 ## 7. Portapapeles y microfeedback
 
 ### Objetivo
@@ -585,6 +617,8 @@ Esta funcionalidad permitió conectar varias tecnologías en una sola interacci�
 También permitió comprender la importancia de confirmar visualmente una acción realizada por el usuario.
 
 ---
+
+<a id="interaccion-8"></a>
 
 ## 8. Debugging: aparición de "Tu paleta"
 
@@ -717,3 +751,439 @@ También permitió aplicar un proceso real de debugging:
 Esta experiencia reforzó la importancia de **probar las respuestas generadas por IA en lugar de asumir que siempre funcionarán correctamente**.
 
 La IA ayudó a plantear y corregir la solución, pero la detección del error ocurrió mediante pruebas reales realizadas sobre la aplicación.
+
+---
+
+<a id="interaccion-9"></a> 
+
+## 9. Accesibilidad
+
+### Objetivo
+
+Revisar que CLRS incorporara consideraciones básicas de accesibilidad y documentar las decisiones implementadas durante el desarrollo.
+
+### Prompt utilizado
+
+> Continuemos con accesibilidad.
+
+Durante el desarrollo también se solicitó revisar que la estructura HTML, los controles, los mensajes dinámicos y las animaciones pudieran utilizarse de una manera más accesible.
+
+### Resultado obtenido
+
+Se identificaron diferentes medidas de accesibilidad que ya formaban parte del proyecto y se documentaron dentro del README.
+
+Entre ellas se encuentran:
+
+- Uso de HTML semántico.
+- Asociación entre `label` y controles de formulario.
+- Uso de `fieldset` y `legend` para agrupar opciones relacionadas.
+- Navegación mediante teclado.
+- Estados visibles de foco mediante `:focus-visible`.
+- Skip link para saltar al contenido principal.
+- Uso de elementos `button` para acciones interactivas.
+- Atributos ARIA.
+- Regiones `aria-live`.
+- Respeto a la preferencia `prefers-reduced-motion`.
+- Diseño adaptable a diferentes tamaños de pantalla.
+
+### HTML semántico
+
+En lugar de construir toda la aplicación utilizando únicamente elementos `div`, se utilizaron etiquetas con significado estructural.
+
+Ejemplos:
+
+```html
+<header>
+<nav>
+<main>
+<section>
+<article>
+<footer>
+```
+
+También se utilizaron elementos específicos para los controles:
+
+```html
+<fieldset>
+    <legend>
+        ¿Cuántos colores necesitas?
+    </legend>
+</fieldset>
+```
+
+Esto permite comunicar con mayor claridad la estructura y propósito de cada parte de la interfaz.
+
+### Foco visible
+
+En CSS se incorporaron estilos específicos para usuarios que navegan mediante teclado:
+
+```css
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible + label {
+    outline: 4px solid var(--azul);
+    outline-offset: 4px;
+}
+```
+
+De esta forma es posible identificar visualmente qué elemento tiene el foco.
+
+### Skip link
+
+Se agregó un enlace al inicio de la página para permitir saltar la navegación y acceder directamente al contenido principal.
+
+```html
+<a
+    class="skip-link"
+    href="#contenido-principal"
+>
+    Saltar al contenido principal
+</a>
+```
+
+Durante las pruebas se analizó también su comportamiento para comprender la diferencia entre:
+
+- Saltar al contenido principal.
+- Navegar directamente al generador de paletas.
+
+Esto ayudó a entender que el skip link tiene una función específica de accesibilidad y no simplemente de navegación rápida.
+
+### Elementos interactivos
+
+Las tarjetas de los colores generados se crean como elementos `button` y no como `div`.
+
+Esto permite que puedan utilizarse tanto con mouse como con teclado y que sean identificadas correctamente como elementos interactivos.
+
+Además, JavaScript asigna un `aria-label` dinámico:
+
+```javascript
+tarjeta.setAttribute(
+    "aria-label",
+    `Copiar color ${codigoVisible} al portapapeles`
+);
+```
+
+### Regiones dinámicas
+
+El microfeedback utiliza:
+
+```html
+aria-live="polite"
+```
+
+Esto permite informar sobre cambios dinámicos sin obligar a mover el foco del usuario.
+
+### Reducción de movimiento
+
+El proyecto respeta la preferencia configurada por el usuario mediante:
+
+```css
+@media (prefers-reduced-motion: reduce)
+```
+
+JavaScript también consulta esta preferencia antes de iniciar el cambio automático de palabras del Hero.
+
+### Decisión documental
+
+Se decidió no afirmar que CLRS cumple completamente con estándares como WCAG, ya que no se realizó una auditoría formal.
+
+En su lugar, se documentó que el proyecto incorpora **consideraciones básicas de accesibilidad**.
+
+### Aprendizaje
+
+Esta parte permitió comprender que accesibilidad no significa únicamente agregar atributos ARIA.
+
+También implica:
+
+- Utilizar correctamente HTML.
+- Permitir navegación mediante teclado.
+- Mostrar el foco.
+- Elegir elementos interactivos apropiados.
+- Comunicar cambios dinámicos.
+- Considerar preferencias del sistema operativo.
+
+La accesibilidad se trató como parte de la construcción de la interfaz y no como una modificación agregada al final.
+
+---
+
+<a id="interaccion-10"></a>
+
+## 10. Documentación mediante Markdown
+
+### Objetivo
+
+Crear documentación clara para el repositorio de GitHub y aprender a utilizar Markdown como lenguaje de documentación técnica.
+
+### Material utilizado
+
+Para esta etapa se proporcionó una guía de Markdown que explicaba elementos como:
+
+- Encabezados.
+- Párrafos.
+- Negritas y cursivas.
+- Listas.
+- Enlaces.
+- Imágenes.
+- Bloques de código.
+- Tablas.
+- GitHub Flavored Markdown.
+
+### Prompt utilizado
+
+> Analiza este documento y dame unos lineamientos para poder hacer el Markdown. ¿Tú cómo lo harías?
+
+### Resultado obtenido
+
+A partir de la guía se propuso crear un archivo principal:
+
+```text
+README.md
+```
+
+con una estructura orientada a presentar profesionalmente el proyecto.
+
+La estructura propuesta fue:
+
+```text
+# CLRS
+
+## Demo
+## Vista previa
+## Descripción
+## Funcionalidades
+## Tecnologías utilizadas
+## Estructura del proyecto
+## Cómo usar CLRS
+## Decisiones técnicas
+## Accesibilidad
+## Uso de Inteligencia Artificial
+## Mejoras futuras
+## Autor
+```
+
+### Organización de la documentación
+
+También se decidió separar la evidencia detallada del uso de IA del README principal.
+
+La estructura quedó planteada de la siguiente forma:
+
+```text
+ProyectoM1_JunotQuiroz/
+│
+├── index.html
+├── styles.css
+├── script.js
+├── README.md
+│
+├── assets/
+│
+└── Documentacion/
+    ├── ia.md
+    └── Capturas-IA/
+```
+
+### Uso de sintaxis Markdown
+
+Durante la documentación se utilizaron diferentes elementos.
+
+#### Encabezados
+
+```markdown
+# CLRS
+## Funcionalidades
+### Generación de colores
+```
+
+#### Negritas
+
+```markdown
+**Generador interactivo de paletas de colores**
+```
+
+#### Listas
+
+```markdown
+- HTML5
+- CSS3
+- JavaScript
+```
+
+#### Enlaces
+
+```markdown
+[Ver CLRS en GitHub Pages](https://junotquiroz.github.io/ProyectoM1_JunotQuiroz/)
+```
+
+#### Imágenes
+
+```markdown
+![Vista principal de CLRS](assets/captura-clrs.png)
+```
+
+#### Tablas
+
+```markdown
+| Tecnología | Uso |
+|---|---|
+| HTML5 | Estructura semántica |
+| CSS3 | Diseño visual |
+| JavaScript | Interactividad |
+```
+
+#### Bloques de código
+
+Los bloques de código se utilizaron para mostrar ejemplos técnicos y la estructura de carpetas sin perder el formato.
+
+### Documentación del uso de IA
+
+Se decidió crear este archivo `IA.md` para documentar de manera más detallada:
+
+- Objetivo de cada interacción.
+- Prompt utilizado.
+- Resultado obtenido.
+- Decisiones tomadas.
+- Código relevante.
+- Problemas encontrados.
+- Aprendizajes.
+
+También se propuso incluir un enlace compartido de la conversación completa con ChatGPT como evidencia adicional del proceso.
+
+### Aprendizaje
+
+Esta etapa permitió comprender que la documentación forma parte del desarrollo de software.
+
+Un repositorio no está completo únicamente porque el código funcione.
+
+También debe permitir que otra persona pueda comprender:
+
+- Qué hace el proyecto.
+- Cómo utilizarlo.
+- Cómo está organizado.
+- Qué tecnologías utiliza.
+- Qué decisiones técnicas se tomaron.
+- Cómo fue desarrollado.
+
+---
+
+<a id="interaccion-11"></a>
+
+## 11. Reflexión final sobre el uso de Inteligencia Artificial
+
+El desarrollo de CLRS permitió experimentar con Inteligencia Artificial como una herramienta de acompañamiento durante un proyecto completo de desarrollo frontend.
+
+La IA fue utilizada desde la etapa inicial de análisis hasta la documentación final.
+
+El proceso incluyó:
+
+1. Comprender los requerimientos del Proyecto Integrador.
+2. Analizar una propuesta inicial.
+3. Definir el alcance del proyecto.
+4. Construir HTML semántico.
+5. Diseñar la interfaz con CSS.
+6. Implementar la lógica con JavaScript.
+7. Crear renderizado dinámico.
+8. Trabajar con HSL y HEX.
+9. Implementar portapapeles y microfeedback.
+10. Detectar y corregir errores.
+11. Revisar accesibilidad.
+12. Documentar el proyecto con Markdown.
+
+### Forma de trabajo
+
+Una de las decisiones principales fue no solicitar únicamente un proyecto terminado.
+
+Las interacciones se plantearon de forma progresiva, solicitando explicaciones de cada bloque antes o durante su implementación.
+
+Esto permitió utilizar la IA como una herramienta para:
+
+- Proponer soluciones.
+- Explicar conceptos.
+- Comparar alternativas.
+- Identificar posibles problemas.
+- Depurar errores.
+- Documentar decisiones.
+
+### Validación humana
+
+Las respuestas de la IA no fueron consideradas automáticamente correctas.
+
+Cada funcionalidad fue probada directamente en el navegador.
+
+Durante este proceso incluso se detectó una regresión relacionada con la sección "Tu paleta", demostrando que una solución generada por IA también necesita ser revisada, probada y corregida.
+
+El flujo de trabajo fue:
+
+```text
+Prompt
+  ↓
+Propuesta de IA
+  ↓
+Comprensión
+  ↓
+Implementación
+  ↓
+Prueba
+  ↓
+¿Funciona?
+  ├── Sí → Continuar
+  └── No → Analizar y corregir
+```
+
+### Principales aprendizajes técnicos
+
+El desarrollo ayudó a reforzar conceptos como:
+
+- HTML semántico.
+- Selectores.
+- Flexbox.
+- CSS Grid.
+- Responsive design.
+- Variables CSS.
+- Arrays.
+- Objetos.
+- Funciones.
+- Ciclos.
+- Eventos.
+- DOM.
+- Render dinámico.
+- `Math.random()`.
+- `setInterval()`.
+- `setTimeout()`.
+- Clipboard API.
+- Conversión y representación de colores.
+- Accesibilidad.
+- Debugging.
+- Markdown.
+
+### Aprendizaje sobre Inteligencia Artificial
+
+El proyecto también permitió comprender que obtener buenos resultados con IA depende de proporcionar contexto y trabajar de manera iterativa.
+
+Los prompts fueron evolucionando conforme avanzaba el proyecto.
+
+En lugar de preguntar solamente:
+
+> "Hazme una página web"
+
+se proporcionó información sobre:
+
+- Requerimientos.
+- Rúbrica.
+- Código existente.
+- Referencias visuales.
+- Problemas encontrados.
+- Resultados de pruebas.
+- Decisiones tomadas previamente.
+
+Esto permitió mantener continuidad durante el desarrollo.
+
+### Conclusión
+
+La Inteligencia Artificial permitió acelerar algunas tareas y facilitar la comprensión de conceptos, pero no sustituyó las pruebas ni la toma de decisiones durante el proyecto.
+
+El resultado final surgió de la combinación de:
+
+**criterio del estudiante + conocimientos adquiridos + pruebas + iteración + apoyo de IA**
+
+El principal aprendizaje fue utilizar la IA no solamente para obtener código, sino para comprender mejor el proceso de construcción, identificar errores y tomar decisiones técnicas de manera más informada.
