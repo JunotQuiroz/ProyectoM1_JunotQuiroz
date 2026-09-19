@@ -398,7 +398,8 @@ function crearColorAleatorio() {
         s,
         l,
         hsl,
-        hex
+        hex,
+        bloqueado: false
     };
 
 }
@@ -411,27 +412,194 @@ function generarNuevaPaleta() {
     const cantidad =
         obtenerCantidadSeleccionada();
 
-    paletaActual = [];
+    const coloresBloqueados =
+        paletaActual.filter(
+            (color) => color.bloqueado
+        );
 
+    if (
+        coloresBloqueados.length >
+        cantidad
+    ) {
+
+        mostrarToast(
+            `Tienes ${coloresBloqueados.length} colores bloqueados. Desbloquea algunos antes de generar una paleta de ${cantidad}.`
+        );
+
+        return;
+    }
+
+    const nuevaPaleta =
+        new Array(cantidad).fill(null);
+
+    const bloqueadosFueraDeRango = [];
+
+    paletaActual.forEach(
+        (color, indice) => {
+
+            if (!color.bloqueado) {
+                return;
+            }
+
+            if (indice < cantidad) {
+
+                nuevaPaleta[indice] =
+                    color;
+
+            } else {
+
+                bloqueadosFueraDeRango.push(
+                    color
+                );
+
+            }
+
+        }
+    );
+
+    const posicionesLibres = [];
+
+
+    nuevaPaleta.forEach(
+        (color, indice) => {
+
+            if (color === null) {
+
+                posicionesLibres.push(
+                    indice
+                );
+
+            }
+
+        }
+    );
+
+    const posicionesParaReubicar =
+        posicionesLibres.slice(
+            -bloqueadosFueraDeRango.length
+        );
+
+
+    bloqueadosFueraDeRango.forEach(
+        (color, indice) => {
+
+            const nuevaPosicion =
+                posicionesParaReubicar[indice];
+
+
+            nuevaPaleta[nuevaPosicion] =
+                color;
+
+        }
+    );
 
     for (
         let i = 0;
-        i < cantidad;
+        i < nuevaPaleta.length;
         i++
     ) {
 
-        const color =
-            crearColorAleatorio();
+        if (
+            nuevaPaleta[i] === null
+        ) {
 
-        paletaActual.push(
-            color
-        );
+            nuevaPaleta[i] =
+                crearColorAleatorio();
+
+        }
 
     }
-resultadoPaleta.hidden = false;
-renderizarPaleta();
+
+    paletaActual =
+        nuevaPaleta;
+
+
+    resultadoPaleta.hidden =
+        false;
+
 
     renderizarPaleta();
+
+}
+
+function alternarBloqueoColor(indice) {
+
+    const color =
+        paletaActual[indice];
+
+    if (!color) {
+        return;
+    }
+
+    color.bloqueado =
+        !color.bloqueado;
+
+    renderizarPaleta();
+
+}
+
+function obtenerIconoCandado(bloqueado) {
+
+    if (bloqueado) {
+
+        return `
+            <svg
+                class="icono-candado"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <rect
+                    x="5"
+                    y="10"
+                    width="14"
+                    height="10"
+                    rx="2"
+                ></rect>
+
+                <path
+                    d="M8 10V7
+                      a4 4 0 0 1 8 0
+                      v3"
+                ></path>
+
+                <circle
+                    cx="12"
+                    cy="15"
+                    r="1"
+                ></circle>
+            </svg>
+        `;
+
+    }
+
+    return `
+        <svg
+            class="icono-candado"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+        >
+            <rect
+                x="5"
+                y="10"
+                width="14"
+                height="10"
+                rx="2"
+            ></rect>
+
+            <path
+                d="M8 10V7
+                  a4 4 0 0 1 7.5-2"
+            ></path>
+
+            <circle
+                cx="12"
+                cy="15"
+                r="1"
+            ></circle>
+        </svg>
+    `;
 
 }
 
@@ -440,77 +608,172 @@ function renderizarPaleta() {
     const formatoSeleccionado =
         obtenerFormatoSeleccionado();
 
+
     contenedorPaleta.innerHTML = "";
+
 
     contenedorPaleta.dataset.cantidad =
         paletaActual.length;
 
-    paletaActual.forEach((color) => {
 
-        const codigoVisible =
-            formatoSeleccionado === "hex"
-                ? color.hex
-                : color.hsl;
-
-        const tarjeta =
-            document.createElement(
-                "button"
-            );
+    paletaActual.forEach(
+        (color, indice) => {
 
 
-        tarjeta.type = "button";
+            const codigoVisible =
+                formatoSeleccionado === "hex"
+                    ? color.hex
+                    : color.hsl;
 
-
-        tarjeta.classList.add(
-            "tarjeta-color"
-        );
-
-
-        tarjeta.style.setProperty(
-            "--color-tarjeta",
-            color.hex
-        );
-
-        tarjeta.setAttribute(
-            "aria-label",
-            `Copiar color ${codigoVisible} al portapapeles`
-        );
-
-        const codigo =
-            document.createElement(
-                "span"
-            );
-
-
-        codigo.classList.add(
-            "codigo-color"
-        );
-
-
-        codigo.textContent =
-            codigoVisible;
-
-
-        tarjeta.appendChild(
-            codigo
-        );
-
-        tarjeta.addEventListener(
-            "click",
-            () => {
-
-                copiarColor(
-                    codigoVisible
+            const tarjeta =
+                document.createElement(
+                    "article"
                 );
 
+
+            tarjeta.classList.add(
+                "tarjeta-color"
+            );
+
+
+            tarjeta.style.setProperty(
+                "--color-tarjeta",
+                color.hex
+            );
+
+            const botonCopiar =
+                document.createElement(
+                    "button"
+                );
+
+
+            botonCopiar.type =
+                "button";
+
+
+            botonCopiar.classList.add(
+                "boton-copiar-color"
+            );
+
+
+            botonCopiar.setAttribute(
+                "aria-label",
+                `Copiar color ${codigoVisible} al portapapeles`
+            );
+
+
+            const codigo =
+                document.createElement(
+                    "span"
+                );
+
+
+            codigo.classList.add(
+                "codigo-color"
+            );
+
+
+            codigo.textContent =
+                codigoVisible;
+
+
+            botonCopiar.appendChild(
+                codigo
+            );
+
+
+            botonCopiar.addEventListener(
+                "click",
+                () => {
+
+                    copiarColor(
+                        codigoVisible
+                    );
+
+                }
+            );
+
+            const botonBloqueo =
+                document.createElement(
+                    "button"
+                );
+
+
+            botonBloqueo.type =
+                "button";
+
+
+            botonBloqueo.classList.add(
+                "boton-bloqueo"
+            );
+
+
+            botonBloqueo.innerHTML =
+    obtenerIconoCandado(
+        color.bloqueado
+    );
+
+            botonBloqueo.setAttribute(
+                "aria-pressed",
+                color.bloqueado
+            );
+
+
+            if (color.bloqueado) {
+
+                botonBloqueo.setAttribute(
+                    "aria-label",
+                    `Desbloquear color ${codigoVisible}`
+                );
+
+                botonBloqueo.title =
+                    "Desbloquear color";
+
+
+                tarjeta.classList.add(
+                    "bloqueada"
+                );
+
+            } else {
+
+                botonBloqueo.setAttribute(
+                    "aria-label",
+                    `Bloquear color ${codigoVisible}`
+                );
+
+                botonBloqueo.title =
+                    "Bloquear color";
+
             }
-        );
 
-        contenedorPaleta.appendChild(
-            tarjeta
-        );
 
-    });
+            botonBloqueo.addEventListener(
+                "click",
+                () => {
+
+                    alternarBloqueoColor(
+                        indice
+                    );
+
+                }
+            );
+
+            tarjeta.appendChild(
+                botonCopiar
+            );
+
+
+            tarjeta.appendChild(
+                botonBloqueo
+            );
+
+
+            contenedorPaleta.appendChild(
+                tarjeta
+            );
+
+        }
+    );
 
 }
 
