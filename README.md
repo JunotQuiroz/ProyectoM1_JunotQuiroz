@@ -33,6 +33,8 @@ CLRS integra distintas herramientas orientadas a explorar y trabajar con el colo
 - **Recomendador por industria:** permite seleccionar un sector y recibir una recomendación acompañada de tres colores sugeridos.
 - **Hero dinámico:** diferentes palabras relacionadas con las emociones y sensaciones del color cambian automáticamente.
 - **Renderizado dinámico con JavaScript:** las tarjetas de color son creadas en tiempo real según las opciones seleccionadas.
+- **Bloqueo de colores:** permite fijar uno o varios colores de una paleta para conservarlos al generar una nueva combinación. Los colores bloqueados mantienen su valor y, cuando es posible, su posición dentro de la paleta.
+- **Guardado de paletas:** permite almacenar paletas de colores en `localStorage` para conservarlas incluso después de recargar o cerrar el navegador. Las paletas guardadas pueden volver a cargarse o eliminarse posteriormente.
 - **Diseño responsive:** la interfaz adapta su distribución para diferentes tamaños de pantalla.
 - **Consideraciones de accesibilidad:** se utilizan etiquetas semánticas, labels asociados, foco visible, botones accesibles y regiones `aria-live`.
 
@@ -79,6 +81,8 @@ ProyectoM1_JunotQuiroz/
 5. Presiona **Generar paleta**.
 6. Haz clic sobre cualquier color para copiar su código al portapapeles.
 7. Cambia entre HEX y HSL para visualizar la misma paleta en ambos formatos.
+8. Bloquea un color y genera una nueva paleta de colores
+9. Guarda en localstorage paletas de colores, puedes reutilizarlas oy eliminarlas cuando lo necesites
 
 ---
 
@@ -207,9 +211,6 @@ La Inteligencia Artificial se utilizó como herramienta de acompañamiento duran
 
 Aunque CLRS cumple actualmente con los objetivos principales del proyecto, existen diferentes funcionalidades que podrían incorporarse en versiones posteriores:
 
-- Guardar paletas mediante `localStorage`.
-- Bloquear colores individuales antes de generar una nueva paleta.
-- Crear un historial de paletas generadas.
 - Agregar nuevas industrias al recomendador.
 - Permitir descargar una paleta como imagen.
 - Añadir nombres descriptivos a los colores generados.
