@@ -135,12 +135,36 @@ const radiosFormato =
         'input[name="formato"]'
     );
 
+const botonGuardarPaleta =
+    document.querySelector(
+        "#btn-guardar-paleta"
+    );
+
+
+const seccionPaletasGuardadas =
+    document.querySelector(
+        "#seccion-paletas-guardadas"
+    );
+
+
+const contenedorPaletasGuardadas =
+    document.querySelector(
+        "#contenedor-paletas-guardadas"
+    );
+
 const toast =
     document.querySelector("#toast");
 
 let indicePalabra = 0;
 
 let paletaActual = [];
+
+const CLAVE_LOCAL_STORAGE =
+    "clrs-paletas-guardadas";
+
+
+let paletasGuardadas =
+    cargarPaletasGuardadas();
 
 let temporizadorToast;
 
@@ -817,6 +841,363 @@ async function copiarColor(codigo) {
 
 }
 
+function cargarPaletasGuardadas() {
+
+    const datosGuardados =
+        localStorage.getItem(
+            CLAVE_LOCAL_STORAGE
+        );
+
+
+    if (!datosGuardados) {
+
+        return [];
+
+    }
+
+
+    try {
+
+        const datosConvertidos =
+            JSON.parse(
+                datosGuardados
+            );
+
+
+        if (
+            Array.isArray(
+                datosConvertidos
+            )
+        ) {
+
+            return datosConvertidos;
+
+        }
+
+
+        return [];
+
+
+    } catch (error) {
+
+        console.error(
+            "No se pudieron cargar las paletas:",
+            error
+        );
+
+
+        return [];
+
+    }
+
+}
+
+function actualizarLocalStorage() {
+
+    localStorage.setItem(
+        CLAVE_LOCAL_STORAGE,
+        JSON.stringify(
+            paletasGuardadas
+        )
+    );
+
+}
+
+function guardarPaletaActual() {
+
+    if (
+        paletaActual.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    const nuevaPaletaGuardada = {
+
+        id: Date.now(),
+
+        colores:
+            paletaActual.map(
+                (color) => {
+
+                    return {
+
+                        h: color.h,
+                        s: color.s,
+                        l: color.l,
+                        hsl: color.hsl,
+                        hex: color.hex
+
+                    };
+
+                }
+            )
+
+    };
+
+
+    paletasGuardadas.unshift(
+        nuevaPaletaGuardada
+    );
+
+
+    actualizarLocalStorage();
+
+
+    renderizarPaletasGuardadas();
+
+
+    mostrarToast(
+        "Paleta guardada correctamente"
+    );
+
+}
+
+function renderizarPaletasGuardadas() {
+
+    contenedorPaletasGuardadas.innerHTML =
+        "";
+
+
+    if (
+        paletasGuardadas.length === 0
+    ) {
+
+        seccionPaletasGuardadas.hidden =
+            true;
+
+        return;
+
+    }
+
+
+    seccionPaletasGuardadas.hidden =
+        false;
+
+
+    paletasGuardadas.forEach(
+        (paletaGuardada) => {
+
+
+            const tarjeta =
+                document.createElement(
+                    "article"
+                );
+
+
+            tarjeta.classList.add(
+                "paleta-guardada"
+            );
+
+
+            const preview =
+                document.createElement(
+                    "div"
+                );
+
+
+            preview.classList.add(
+                "preview-paleta-guardada"
+            );
+
+
+            paletaGuardada.colores.forEach(
+                (color) => {
+
+
+                    const muestra =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    muestra.classList.add(
+                        "color-guardado"
+                    );
+
+
+                    muestra.style.backgroundColor =
+                        color.hex;
+
+
+                    preview.appendChild(
+                        muestra
+                    );
+
+                }
+            );
+
+
+            const acciones =
+                document.createElement(
+                    "div"
+                );
+
+
+            acciones.classList.add(
+                "acciones-paleta-guardada"
+            );
+
+
+            const botonUsar =
+                document.createElement(
+                    "button"
+                );
+
+
+            botonUsar.type =
+                "button";
+
+
+            botonUsar.textContent =
+                "Usar paleta";
+
+
+            botonUsar.addEventListener(
+                "click",
+                () => {
+
+                    cargarPaletaGuardada(
+                        paletaGuardada.id
+                    );
+
+                }
+            );
+
+
+            const botonEliminar =
+                document.createElement(
+                    "button"
+                );
+
+
+            botonEliminar.type =
+                "button";
+
+
+            botonEliminar.textContent =
+                "Eliminar";
+
+
+            botonEliminar.addEventListener(
+                "click",
+                () => {
+
+                    eliminarPaletaGuardada(
+                        paletaGuardada.id
+                    );
+
+                }
+            );
+
+
+            acciones.appendChild(
+                botonUsar
+            );
+
+
+            acciones.appendChild(
+                botonEliminar
+            );
+
+
+            tarjeta.appendChild(
+                preview
+            );
+
+
+            tarjeta.appendChild(
+                acciones
+            );
+
+
+            contenedorPaletasGuardadas.appendChild(
+                tarjeta
+            );
+
+        }
+    );
+
+}
+
+function cargarPaletaGuardada(id) {
+
+    const paletaEncontrada =
+        paletasGuardadas.find(
+            (paleta) =>
+                paleta.id === id
+        );
+
+
+    if (!paletaEncontrada) {
+
+        return;
+
+    }
+
+
+    paletaActual =
+        paletaEncontrada.colores.map(
+            (color) => {
+
+                return {
+
+                    ...color,
+                    bloqueado: false
+
+                };
+
+            }
+        );
+
+        const radioCantidad =
+    document.querySelector(
+        `input[name="cantidad"][value="${paletaActual.length}"]`
+    );
+
+
+if (radioCantidad) {
+
+    radioCantidad.checked =
+        true;
+
+}
+
+    resultadoPaleta.hidden =
+        false;
+
+
+    renderizarPaleta();
+
+
+    mostrarToast(
+        "Paleta cargada"
+    );
+
+}
+
+function eliminarPaletaGuardada(id) {
+
+    paletasGuardadas =
+        paletasGuardadas.filter(
+            (paleta) =>
+                paleta.id !== id
+        );
+
+
+    actualizarLocalStorage();
+
+
+    renderizarPaletasGuardadas();
+
+
+    mostrarToast(
+        "Paleta eliminada"
+    );
+
+}
 
 // MICROFEEDBACK //
 
@@ -881,7 +1262,15 @@ radiosFormato.forEach((radio) => {
 
 });
 
+botonGuardarPaleta.addEventListener(
+    "click",
+    guardarPaletaActual
+);
+
+renderizarPaletasGuardadas();
 iniciarRotadorPalabras();
+
+
 
 
 

@@ -5,17 +5,14 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="CLRS es una herramienta interactiva para explorar el color y generar paletas en formatos HEX y HSL."
-    >
+    <meta name="description"
+        content="CLRS es una herramienta interactiva para explorar el color y generar paletas en formatos HEX y HSL.">
 
-    <title>CLRS | Generador de Paletas de Colores</title>
+    <title>
+        CLRS | Generador de Paletas de Colores
+    </title>
 
     <link rel="stylesheet" href="styles.css">
 
@@ -23,25 +20,19 @@
 
 </head>
 
+
 <body>
 
-    <a
-        class="skip-link"
-        href="#contenido-principal"
-    >
+    <a class="skip-link" href="#contenido-principal">
         Saltar al contenido principal
     </a>
 
-
     <header class="site-header">
 
-        <a
-            class="brand"
-            href="#hero"
-            aria-label="CLRS, volver al inicio"
-        >
+        <a class="brand" href="#hero" aria-label="CLRS, volver al inicio">
             CLRS
         </a>
+
 
         <nav aria-label="Navegación principal">
 
@@ -71,30 +62,25 @@
 
     </header>
 
-
     <main id="contenido-principal">
 
-
-        <section
-            id="hero"
-            class="hero-section"
-            aria-labelledby="titulo-principal"
-        >
+        <section id="hero" class="hero-section" aria-labelledby="titulo-principal">
 
             <div class="hero-content">
 
-                <h1
-                    id="titulo-principal"
-                    class="hero-title"
-                >
+                <h1 id="titulo-principal" class="hero-title">
                     CLRS
                 </h1>
 
+
                 <p class="hero-subtitle">
+
                     Un color puede transmitir
+
                     <span id="palabra-dinamica">
                         paz
                     </span>
+
                 </p>
 
             </div>
@@ -102,15 +88,12 @@
         </section>
 
 
-        <section
-            id="teoria-color"
-            class="teoria-section"
-            aria-labelledby="titulo-teoria"
-        >
+        <section id="teoria-color" class="teoria-section" aria-labelledby="titulo-teoria">
 
             <h2 id="titulo-teoria">
                 El impacto del color
             </h2>
+
 
             <article class="teoria-contenido">
 
@@ -121,12 +104,14 @@
                     arte y la comunicación visual.
                 </p>
 
+
                 <p>
                     En el ámbito del diseño gráfico, la elección
                     de colores es crucial para crear composiciones
                     que atraigan a la audiencia. Cada color puede
                     evocar diferentes emociones y sensaciones.
                 </p>
+
 
                 <p>
                     La publicidad utiliza el color para construir
@@ -139,16 +124,13 @@
         </section>
 
 
-        <section
-            id="recomendador"
-            class="recomendador-section"
-            aria-labelledby="titulo-recomendador"
-        >
+        <section id="recomendador" class="recomendador-section" aria-labelledby="titulo-recomendador">
 
             <h2 id="titulo-recomendador">
                 Descubre la combinación de colores ideal
                 para tu empresa
             </h2>
+
 
             <div class="selector-container">
 
@@ -156,30 +138,28 @@
                     ¿A qué industria pertenece tu empresa?
                 </label>
 
-                <select
-                    id="industria-selector"
-                    name="industria"
-                >
 
-                    <option
-                        value=""
-                        disabled
-                        selected
-                    >
+                <select id="industria-selector" name="industria">
+
+                    <option value="" disabled selected>
                         Selecciona una opción...
                     </option>
+
 
                     <option value="salud">
                         Salud y Bienestar
                     </option>
 
+
                     <option value="medio-ambiente">
                         Medio Ambiente
                     </option>
 
+
                     <option value="restaurante">
                         Restaurantes y Gastronomía
                     </option>
+
 
                     <option value="turismo">
                         Turismo
@@ -190,36 +170,24 @@
             </div>
 
 
-            <article
-                id="resultado-recomendacion"
-                class="resultado-recomendacion"
-                aria-live="polite"
-                hidden
-            >
+            <article id="resultado-recomendacion" class="resultado-recomendacion" aria-live="polite" hidden>
 
                 <h3 id="titulo-recomendacion">
                 </h3>
 
+
                 <p id="texto-recomendacion">
                 </p>
 
-                <div
-                    id="colores-recomendados"
-                    class="swatches-recomendados"
-                    aria-label="Colores recomendados"
-                >
+
+                <div id="colores-recomendados" class="swatches-recomendados" aria-label="Colores recomendados">
                 </div>
 
             </article>
 
         </section>
 
-
-        <section
-            id="generador"
-            class="generador-section"
-            aria-labelledby="titulo-generador"
-        >
+        <section id="generador" class="generador-section" aria-labelledby="titulo-generador">
 
             <h2 id="titulo-generador">
                 Generador de paletas de colores
@@ -228,55 +196,42 @@
 
             <div class="controles-paleta">
 
-
                 <fieldset class="grupo-control">
 
                     <legend>
                         ¿Cuántos colores necesitas?
                     </legend>
 
+
                     <div class="opciones-cantidad">
 
-                        <input
-                            type="radio"
-                            id="cantidad-6"
-                            name="cantidad"
-                            value="6"
-                            checked
-                        >
+
+                        <input type="radio" id="cantidad-6" name="cantidad" value="6" checked>
 
                         <label for="cantidad-6">
                             6
                         </label>
 
 
-                        <input
-                            type="radio"
-                            id="cantidad-8"
-                            name="cantidad"
-                            value="8"
-                        >
+
+                        <input type="radio" id="cantidad-8" name="cantidad" value="8">
 
                         <label for="cantidad-8">
                             8
                         </label>
 
 
-                        <input
-                            type="radio"
-                            id="cantidad-9"
-                            name="cantidad"
-                            value="9"
-                        >
+
+                        <input type="radio" id="cantidad-9" name="cantidad" value="9">
 
                         <label for="cantidad-9">
                             9
                         </label>
 
+
                     </div>
 
                 </fieldset>
-
 
                 <fieldset class="grupo-control">
 
@@ -284,81 +239,97 @@
                         Formato de color
                     </legend>
 
+
                     <div class="opciones-formato">
 
-                        <input
-                            type="radio"
-                            id="formato-hex"
-                            name="formato"
-                            value="hex"
-                            checked
-                        >
+
+                        <input type="radio" id="formato-hex" name="formato" value="hex" checked>
 
                         <label for="formato-hex">
                             HEX
                         </label>
 
 
-                        <input
-                            type="radio"
-                            id="formato-hsl"
-                            name="formato"
-                            value="hsl"
-                        >
+
+                        <input type="radio" id="formato-hsl" name="formato" value="hsl">
 
                         <label for="formato-hsl">
                             HSL
                         </label>
 
+
                     </div>
 
                 </fieldset>
 
-
-                <button
-                    id="btn-generar"
-                    class="btn-principal"
-                    type="button"
-                >
+                <button id="btn-generar" class="btn-principal" type="button">
                     Generar paleta
                 </button>
+
 
             </div>
 
 
-            <section
-                class="resultado-paleta"
-                aria-labelledby="titulo-resultado"
-                hidden
-            >   
+            <section class="resultado-paleta" aria-labelledby="titulo-resultado" hidden>
 
-                <h3 id="titulo-resultado">
-                    Tu paleta
-                </h3>
+                <div class="encabezado-resultado">
 
-                <div
-                    id="contenedor-paleta"
-                    class="lienzo-paleta"
-                >
+                    <h3 id="titulo-resultado">
+                        Tu paleta
+                    </h3>
+
+
+                    <button id="btn-guardar-paleta" class="btn-guardar-paleta" type="button"
+                        aria-label="Guardar paleta en este navegador" title="Guardar paleta">
+
+                        <svg class="icono-guardar" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                            <path d="
+                M6 4
+                C6 2.9 6.9 2 8 2
+                H16
+                C17.1 2 18 2.9 18 4
+                V21
+                L12 17
+                L6 21
+                Z
+            "></path>
+
+                        </svg>
+
+                    </button>
+
                 </div>
 
+                <div id="contenedor-paleta" class="lienzo-paleta">
+                </div>
+
+
             </section>
+
+
+            <section id="seccion-paletas-guardadas" class="paletas-guardadas" aria-labelledby="titulo-paletas-guardadas"
+                hidden>
+
+                <h3 id="titulo-paletas-guardadas">
+                    Paletas guardadas
+                </h3>
+
+
+                <div id="contenedor-paletas-guardadas" class="contenedor-paletas-guardadas">
+                </div>
+
+
+            </section>
+
 
         </section>
 
 
     </main>
 
-
-    <div
-        id="toast"
-        class="toast"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-    >
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
     </div>
-
 
     <footer class="site-footer">
 

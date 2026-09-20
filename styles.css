@@ -59,7 +59,7 @@ label {
 a:focus-visible,
 button:focus-visible,
 select:focus-visible,
-input:focus-visible + label {
+input:focus-visible+label {
     outline: 4px solid var(--azul);
     outline-offset: 4px;
 }
@@ -80,6 +80,7 @@ input:focus-visible + label {
 .skip-link:focus {
     transform: translateY(0);
 }
+
 /* Accesibilidad */
 
 .site-header {
@@ -295,15 +296,16 @@ input:focus-visible + label {
     gap: 1rem;
     margin-top: 1.5rem;
 }
+
 .swatch-recomendado {
     width: 110px;
     min-height: 90px;
     border: 2px solid var(--texto);
     border-radius: 14px;
     box-shadow: 4px 4px 0 var(--texto);
-    }
+}
 
-    .controles-paleta {
+.controles-paleta {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem;
@@ -359,13 +361,13 @@ input:focus-visible + label {
     box-shadow: 3px 3px 0 var(--texto);
 }
 
-.opciones-cantidad input:checked + label {
+.opciones-cantidad input:checked+label {
     color: var(--blanco);
     background: var(--azul);
     box-shadow: 4px 4px 0 var(--texto);
 }
 
-.opciones-formato input:checked + label {
+.opciones-formato input:checked+label {
     color: var(--blanco);
     background: var(--verde);
     box-shadow: 4px 4px 0 var(--texto);
@@ -438,15 +440,12 @@ input:focus-visible + label {
 
 .boton-bloqueo:hover {
     transform:
-        scale(1.1)
-        rotate(-5deg);
+        scale(1.1) rotate(-5deg);
 }
 
-.tarjeta-color.bloqueada
-.boton-bloqueo:hover {
+.tarjeta-color.bloqueada .boton-bloqueo:hover {
     transform:
-        scale(1.1)
-        rotate(5deg);
+        scale(1.1) rotate(5deg);
 }
 
 .resultado-paleta {
@@ -495,8 +494,7 @@ input:focus-visible + label {
 
 .tarjeta-color:hover {
     transform:
-        translateY(-4px)
-        rotate(-0.4deg);
+        translateY(-4px) rotate(-0.4deg);
     box-shadow:
         7px 7px 0 var(--texto);
 }
@@ -507,6 +505,7 @@ input:focus-visible + label {
     outline-offset:
         -6px;
 }
+
 .codigo-color {
     display: block;
     width: 100%;
@@ -555,6 +554,143 @@ input:focus-visible + label {
 .site-footer p {
     margin: 0;
     font-weight: 700;
+}
+
+.encabezado-resultado {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.25rem;
+}
+
+
+.encabezado-resultado h3 {
+    margin: 0;
+}
+
+
+.btn-guardar-paleta {
+    width: 2.7rem;
+    height: 2.7rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    color: var(--texto);
+    background: var(--blanco);
+
+    border: 2px solid var(--texto);
+    border-radius: 50%;
+
+    box-shadow: 3px 3px 0 var(--texto);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        background-color 0.18s ease,
+        color 0.18s ease;
+}
+
+
+.btn-guardar-paleta:hover {
+    color: var(--blanco);
+    background: var(--verde);
+
+    transform:
+        translateY(-2px) rotate(-4deg);
+}
+
+
+.icono-guardar {
+    width: 1.3rem;
+    height: 1.3rem;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    pointer-events: none;
+}
+
+.paletas-guardadas {
+    margin-top: 4rem;
+}
+
+
+.paletas-guardadas h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+}
+
+
+.contenedor-paletas-guardadas {
+    display: grid;
+    gap: 1.5rem;
+}
+
+
+.paleta-guardada {
+    padding: 1rem;
+
+    background: var(--fondo-suave);
+
+    border: 2px solid var(--texto);
+    border-radius: 16px;
+
+    box-shadow: 4px 4px 0 var(--texto);
+}
+
+
+.preview-paleta-guardada {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+
+    height: 70px;
+
+    overflow: hidden;
+
+    border: 2px solid var(--texto);
+    border-radius: 10px;
+}
+
+
+.color-guardado {
+    min-width: 0;
+}
+
+
+.acciones-paleta-guardada {
+    display: flex;
+    gap: 0.75rem;
+
+    margin-top: 1rem;
+}
+
+
+.acciones-paleta-guardada button {
+    padding: 0.6rem 1rem;
+
+    font-weight: 700;
+
+    background: var(--blanco);
+
+    border: 2px solid var(--texto);
+    border-radius: 999px;
+
+    cursor: pointer;
+}
+
+
+.acciones-paleta-guardada button:hover {
+    background: var(--texto);
+    color: var(--blanco);
 }
 
 @media (max-width: 900px) {
@@ -634,6 +770,7 @@ input:focus-visible + label {
 
 /* Reduce animaciones si el usuario así lo prefiere */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -643,5 +780,5 @@ input:focus-visible + label {
         animation-iteration-count: 1 !important;
     }
 }
-/* Reduce animaciones si el usuario así lo prefiere */
 
+/* Reduce animaciones si el usuario así lo prefiere */
